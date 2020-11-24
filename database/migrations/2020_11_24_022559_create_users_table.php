@@ -12,24 +12,22 @@ class CreateUsersTable extends Migration
      * @return void
      */
     public function up()
-    // $table->id();
-    //             $table->string('name');
-    //             $table->string('email')->unique();
-    //             $table->timestamp('email_verified_at')->nullable();
-    //             $table->string('password');
-    //             $table->rememberToken();
-    //             $table->timestamps();
-
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
-            // Address;
+            // TODO: Address;
+            // $table->integer('address_id')->unsigned();
             $table->string('phone');
-            // PaymentMethod;
+            // TODO: PaymentMethod;
+            // $table->integer('payment_method_id')->unsigned();
             $table->timestamps();
+
+            // TODO: Foreign keys
+            // $table->foreign('address_id')->references('id')->on('addresses');
+            // $table->foreign('payment_method_id')->references('id')->on('payment_methods');
         });
     }
 

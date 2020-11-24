@@ -14,14 +14,19 @@ class CreateAddressesTable extends Migration
     public function up()
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('street_1');
             $table->string('street_2')->nullable();
             $table->string('city');
             $table->string('state');
             $table->string('zip');
-            // User // Can an Address have many users?
             $table->timestamps();
+
+            // Foreign keys
+            // User // Can an Address have many users?
+            // $table->unsignedBigInteger('user_id');
+
+            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

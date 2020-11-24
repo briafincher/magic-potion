@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+    	'quantity',
+    	'fulfilled',
+    ];
+
+    public function total() {
+    	return $this->quantity * $this->price;
+    }
 }
