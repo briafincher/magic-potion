@@ -53,17 +53,21 @@ class MagicController extends Controller
         ];
 
         $user = User::firstOrCreate(['email' => $request->email], $user_params);
-        $address = Address::firstOrNew(['user_id' => $user->id], $address_params);
-        $payment_method = PaymentMethod::firstOrNew(['user_id' => $user->id], $payment_params);
 
-        $orders_this_month = $user->ordersForMonth(getdate());
+        // What if the user wants to use a different address or payment method...?
+        $address = Address::firstOrCreate(['user_id' => $user->id], $address_params);
+        $payment_method = PaymentMethod::firstOrCreate(['user_id' => $user->id], $payment_params);
 
-        if (count($orders_this_month) < 3) {
-         $new_order = new Order($order_params);
-         $new_order->save();
+        $num_monthly_orders = $user->ordersForMonth(getdate())->sum('quantity');
+
+        if ($num_orders_this_month + $request->quantity <= 3) {
+            $new_order = new Order($order_params);
+            $new_order->save();
+        } else {
+            // raise error
         }
 
-        $response = [ 'id': $user->id ]->toJson();
+        $response = array(['id': $user->id])->toJson();
 
         return response($response, 201);
         // return $request->toJson();
@@ -101,11 +105,9 @@ class MagicController extends Controller
              ];
 
              return response($data)->toJson();
-         } else {
+        } else {
             return response('Resource not found', 404);
-         }
-
-        return view('app');
+        }
     }
 
     public function updateOrder(Request $request) {
