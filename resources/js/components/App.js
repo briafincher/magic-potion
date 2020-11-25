@@ -31,13 +31,23 @@ import OrderForm from './OrderForm';
 class App extends Component {
     render() {
         return (
-            <BrowserRouter>
-                <div>
-                    <Switch>
-                        <Route exact path="/" component={OrderForm} />
-                    </Switch>
-                </div>
-            </BrowserRouter>
+            // <FlashMessage duration={5000} persistOnHover={true}>
+            //   <p>Message</p>
+            // </FlashMessage>;
+            <div>
+
+                <h1>Magic Potion <span role="img" aria-label="magic-ball">🔮</span><span role="img" aria-label="stars">✨</span></h1>
+
+                <p>Place an order of up to three items with the form below.</p>
+
+                <BrowserRouter>
+                    <div>
+                        <Switch>
+                            <Route exact path="/" component={OrderForm} />
+                        </Switch>
+                    </div>
+                </BrowserRouter>
+            </div>
         );
     }
 }
