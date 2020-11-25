@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 
 class MagicController extends Controller
 {
+    /**
+    * @Get("/api")
+    */
     public function showOrderForm() {
         // $products = Product::where('name', 'Magic Potion');
 
@@ -19,10 +22,13 @@ class MagicController extends Controller
         return view('app');
     }
 
+    /**
+    * @Post("/api/magic")
+    */
     public function createOrder(Request $request) {
         // Do this in a transaction??
 
-        // Retrieve User, Address and Payment information -or- create entries in DB
+        // Group parameters
         $user_params = [
             'first_name' => $request->firstName,
             'last_name' => $request->lastName,
@@ -38,13 +44,15 @@ class MagicController extends Controller
             'state' => $request->address['state'],
             'zip' => $request->address['zip']
         ];
-        
+
         // This is likely a security issue. Should each card have just one User?
         $payment_params = [
             'card_number' => $request->payment['ccNum'],
             'expiration_date' => $request->payment['exp']
         ];
 
+
+        // Retrieve User, Address and Payment Method instances
         $user = User::firstOrCreate(['email' => $request->email], $user_params);
 
         // What if the user wants to use a different address...?
@@ -53,6 +61,7 @@ class MagicController extends Controller
 
         // What if the user wants to use a different payment method...?
         $payment_method = PaymentMethod::firstOrCreate(['user_id' => $user->id], $payment_params);
+
 
         // Place the Order
         $order_date = getdate();
@@ -80,6 +89,9 @@ class MagicController extends Controller
         // return view('app');
     }
 
+    /**
+    * @Get("/api/magic/{uid}")
+    */
     public function showOrder($id) {
         $order = Order::find($id);
 
@@ -116,6 +128,9 @@ class MagicController extends Controller
         }
     }
 
+    /**
+    * @Patch("/api/magic")
+    */
     public function updateOrder(Request $request) {
         $order = Order::find($request->id);
 
@@ -129,6 +144,9 @@ class MagicController extends Controller
         }
     }
 
+    /**
+    * @Delete("/api/magic/{uid}")
+    */
     public function deleteOrder($id) {
         $order = Order::find($id);
 

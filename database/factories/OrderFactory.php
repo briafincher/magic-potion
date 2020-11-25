@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class OrderFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Order::class;
 
     /**
      * Define the model's default state.
@@ -23,10 +22,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'email' => $this->faker->unique()->email,
-            'phone' => $this->faker->phoneNumber
-        ];
+            'quantity' => $this->faker->numberBetween($min = 1, $max = 3),
+            'user_id' => User::factory(),
+            'address_id' => Address::factory(),
+            'payment_method_id' => PaymentMethod::factory()
     }
 }

@@ -15,9 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            // TODO: Add Products
             $table->integer('quantity');
-            // TODO: $table->float('total'); // Or decimal?
             $table->foreignId('user_id')->constrained();
             $table->foreignId('address_id')->constrained();
             $table->foreignId('payment_method_id')->constrained();

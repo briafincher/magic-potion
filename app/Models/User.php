@@ -26,6 +26,8 @@ class User extends Model
         return $this->hasMany('App\Models\Order');
     }
 
+    // HasMany Addresses and PaymentMethods ?
+
     // $date should be of type array --> how do you do type checking?
     public function ordersForMonth($date) {
         if (gettype($date) === 'string') {

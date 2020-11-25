@@ -24,6 +24,18 @@ class Order extends Model
     // 	return $this::MAGIC_POTION_PRICE;
     // }
 
+    public function user() {
+        return $this->hasOne('App\Models\User');
+    }
+
+    public function address() {
+        return $this->hasOne('App\Models\Address');
+    }
+
+    public function payment_method() {
+        return $this->hasOne('App\Models\PaymentMethod');
+    }
+
     public function total() {
     	return $this->quantity * $this::MAGIC_POTION_PRICE;
     }

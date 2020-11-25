@@ -14,7 +14,10 @@ class Address extends Model
     	'street_2',
     	'city',
     	'state',
-    	'zip',
-    	'user_id'
+    	'zip'
     ];
+
+    public function user() {
+    	return $this->hasOne('App\Models\User');
+    }
 }
