@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request; 
 
 /*
 |--------------------------------------------------------------------------
@@ -13,117 +14,145 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// https://blog.pusher.com/react-laravel-application/
+Route::view('/{path?}', 'app');
+
 // TODO: Should any routes be moved to api.php?
-Route::get('/', function () {
-    return view('main');
-});
+// Route::get('/', function () {
+//     return view('app');
+// });
 
-Route::post('/magic', function (Request $request) {
-	// Request
-	// $request = {
-	// 	"firstName": "string",
-	// 	"lastName": "string",
-	// 	"email": "string", # unique
-	// 	"address": {
-	// 		"street1": "string",
-	// 		"street2": "string",
-	// 		"city": "string",
-	// 		"state": "string",
-	// 		"zip": "string"
-	// 	},
-	// 	"phone": "string",
-	// 	"quantity": number,
-	// 	"total": "string",
-	// 	"payment": {
-	// 		"ccNum": "string",
-	// 		"exp": "string" 
-	// 	}
-	// }
+// Route::post('/magic', function (Request $request) {
+// 	// Request
+// 	// $request = {
+// 	// 	"firstName": "string",
+// 	// 	"lastName": "string",
+// 	// 	"email": "string", # unique
+// 	// 	"address": {
+// 	// 		"street1": "string",
+// 	// 		"street2": "string",
+// 	// 		"city": "string",
+// 	// 		"state": "string",
+// 	// 		"zip": "string"
+// 	// 	},
+// 	// 	"phone": "string",
+// 	// 	"quantity": number,
+// 	// 	"total": "string",
+// 	// 	"payment": {
+// 	// 		"ccNum": "string",
+// 	// 		"exp": "string" 
+// 	// 	}
+// 	// }
 
-	$params = [
-		'first_name' => $request->firstName,
-		'last_name' => $request->lastName,
-		'email' => $request->email,
-		'address' => new Address(),
-		'phone' => $request->phone,
-		'quantity' => $request->quantity,
-		'total' => $request->quantity * 49.99,
-		'payment' => new PaymentMethod()
-	];
+// 	$user = App\Models\User::where('email', $request->email)->get();
 
-	$user = User::find($email);
-	$orders = $user->orders_for_month(date('M'));
+// 	// if ($user) {
 
-	if (count($orders) < 3) {
-		$new_order = new Order($params);
-	}
+// 	// } else {
+// 		$user_params = [
+// 			'first_name' => $request->firstName,
+// 			'last_name' => $request->lastName,
+// 			'email' => $request->email,
+// 			'phone' => $request->phone
+// 		];
 
-	// Response
-	// return
-	// 201 CREATED
-	// {
-	// 	"id": uid
-	// }
+// 		$order_params = [
+// 			'quantity' => $request->quantity, // Make sure this is an integer
+// 			'total' => $request->total
+// 		];
 
-    return view('main');
-});
+// 		$address_params = [
+// 			'street_1' => $request->address['street1'],
+// 			'street_2' => $request->address['street2'],
+// 			'city' => $request->address['city'],
+// 			'state' => $request->address['state'],
+// 			'zip' => $request->address['zip']
+// 		];
 
-Route::get('/magic/{uid})', function ($uid) {
-	// Response
-	// if ($success) {
-	// 	return 
-	// 	{
-	// 		"firstName": "string", 
-	// 		"lastName": "string", 
-	// 		"email": "string", 
-	// 		"address": {
-	// 			"street1": "string", 
-	// 			"street2": "string", 
-	// 			"city": "string", 
-	// 			"state": "string", 
-	// 			"zip": "string",
-	// 		},
-	// 		"phone": "string", 
-	// 		"payment": {
-	// 			"ccNum": "string",
-	// 			"exp": "string", 
-	// 		},
-	// 		"quantity": number, 
-	// 		"total": "string",
-	// 		 "orderDate": date, 
-	// 		 "fulfilled": bool,
-	// 	}
-	// } else {
-	// 	404 "resource not found"
-	// }
+// 		$payment_params = [
+// 			'card_number' => $request->payment['ccNum'],
+// 			'expiration_date' => $request->payment['exp']
+// 		];
 
-    return view('main');
-});
+// 		$user = App\Models\User::create($user_params);
 
-Route::patch('/magic', function (Request $request) {
-	// Request
-	// $request = {
-	// 	"id": uid, 
-	// 	"fulfilled": bool
-	// }
+// 		$address = App\Models\Address::create($address_params);
+// 		$payment_method = App\Models\PaymentMethod::create($payment_params);
 
-	// Response
-	// if ($success) {
-	// 	return 200 || 204 "resource updated successfully"
-	// } else {
-	// 	return 404 "resource not found"
-	// }
+// 		// $orders_this_month = $user->ordersForMonth(date('M')); // How to get today's date?
 
-    return view('main');
-});
+// 		// if (count($orders_this_month) < 3) {
+// 		// 	$new_order = new Order($params);
+// 		// 	$new_order->save();
+// 		// }
+// 	// }
 
-Route::delete('/magic/{uid}', function ($uid) {
-	// Response
-	// if ($success) {
-	// 	return 200 || 204 "resource deleted successfully"
-	// } else {
-	// 	return 404 "resource not found"
-	// }
+// 	// Response
+// 	// return
+// 	// 201 CREATED
+// 	// {
+// 	// 	"id": uid
+// 	// }
 
-    return view('main');
-});
+//     return view('main');
+// });
+
+// Route::get('/magic/{uid})', function ($uid) {
+// 	// Response
+// 	// if ($success) {
+// 	// 	return 
+// 	// 	{
+// 	// 		"firstName": "string", 
+// 	// 		"lastName": "string", 
+// 	// 		"email": "string", 
+// 	// 		"address": {
+// 	// 			"street1": "string", 
+// 	// 			"street2": "string", 
+// 	// 			"city": "string", 
+// 	// 			"state": "string", 
+// 	// 			"zip": "string",
+// 	// 		},
+// 	// 		"phone": "string", 
+// 	// 		"payment": {
+// 	// 			"ccNum": "string",
+// 	// 			"exp": "string", 
+// 	// 		},
+// 	// 		"quantity": number, 
+// 	// 		"total": "string",
+// 	// 		 "orderDate": date, 
+// 	// 		 "fulfilled": bool,
+// 	// 	}
+// 	// } else {
+// 	// 	404 "resource not found"
+// 	// }
+
+//     return view('main');
+// });
+
+// Route::patch('/magic', function (Request $request) {
+// 	// Request
+// 	// $request = {
+// 	// 	"id": uid, 
+// 	// 	"fulfilled": bool
+// 	// }
+
+// 	// Response
+// 	// if ($success) {
+// 	// 	return 200 || 204 "resource updated successfully"
+// 	// } else {
+// 	// 	return 404 "resource not found"
+// 	// }
+
+//     return view('main');
+// });
+
+// Route::delete('/magic/{uid}', function ($uid) {
+// 	// Response
+// 	// if ($success) {
+// 	// 	return 200 || 204 "resource deleted successfully"
+// 	// } else {
+// 	// 	return 404 "resource not found"
+// 	// }
+
+//     return view('main');
+// });

@@ -15,8 +15,8 @@ class CreatePaymentMethodsTable extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('cc_num');
-            $table->string('exp');
+            $table->string('card_number');
+            $table->string('expiration_date');
             $table->timestamps();
 
             // Foreign keys
