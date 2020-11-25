@@ -76,18 +76,28 @@ import { useForm, ErrorMessage } from "react-hook-form";
 export default function OrderForm() {
 	const { register, handleSubmit, watch, errors } = useForm();
 
-	const onSubmit = data => console.log(data);
-	// const onSubmit = data => axios.post('api/createOrder');
+	// const onSubmit = data => console.log(data);
+	const onSubmit = data => axios.post('/magic', data)
+		.then((response) => console.log(response));
+
+	useEffect(() => {});
 
 	const price = 49.99;
 	const [total, setTotal] = useState(price);
-	const updateTotal = e => setTotal(parseInt(e.target.value) * price);
+
+	// useEffect(() => {}, [total]);
+
+	const updateTotal = e => {
+		// debugger;
+		setTotal(parseInt(e.target.value) * price);
+	};
 
 	// let quantity = watch('quantity');
 	// const totale = () => quantity * 49.99;
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
+
 			<label htmlFor="personal-info">Personal Information</label><br />
 			<div id="personal-info">
 				<input name="firstName" placeholder="First name" ref={register({ required: true })} />
@@ -113,12 +123,12 @@ export default function OrderForm() {
 
 			<label htmlFor="order-info">Order</label>
 			<div id="order-info">
-				Quantity:&nbsp;<select name="quantitySelect" ref={register({ required: true })} onChange={(quantity)=>updateTotal(quantity)}>
+				Quantity:&nbsp;<select name="quantity" ref={register({ required: true })} onChange={(quantity)=>updateTotal(quantity)}>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
 				</select>
-				&nbsp;Total:&nbsp;<input name="total" disabled ref={register} value={total}/>
+				&nbsp;Total:&nbsp;<input name="total" disabled ref={register} value={total} />
 			</div>
 
 			<input type="submit" value="Submit" />

@@ -22,7 +22,17 @@ class User extends Model
     	'phone',
     ];
 
-    public function ordersForMonth($date) {
-    	$all_orders = Orders::where('user_id', $this->id);
+    // $date should be of type array --> how do you do type checking?
+    public function ordersForMonth($date = getdate()) {
+        if gettype($date) === 'string' {
+            $date = date_parse($date);
+        }
+
+        $month = $date['mon'];
+        $year = $date['year'];
+
+        $this->orders->filter(function ($value, $key)) {
+            return $value->created_at->year === $date['year'] && $value->created_at->month === $date['mon'];
+        }
     }
 }

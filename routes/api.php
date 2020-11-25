@@ -20,15 +20,15 @@ use Illuminate\Support\Facades\Route;
 
 // Index
 // Currently, this only allows for orders of one product. How could we extend this to offer other products?
-Route::get('/', 'MagicPotionController@showOrderForm');
+// Route::get('/', 'App\Http\Controllers\MagicController@showOrderForm');
 
 // Order potion
-Route::post('/magic', 'MagicPotionController@createOrder)');
+// Route::post('/magic', 'App\Http\Controllers\MagicController@createOrder)');
 
 // Retrieve order
-Route::get('/magic/{uid})', 'MagicPotionController@showOrder');
+// Route::get('/magic/{uid})', 'App\Http\Controllers\MagicController@showOrder');
 // Update order
-Route::patch('/magic', 'MagicPotionController@updateOrder');
+// Route::patch('/magic', 'App\Http\Controllers\MagicController@updateOrder');
 
 // Delete order
-Route::delete('/magic/{uid}', 'MagicPotionController@deleteOrder');
+// Route::delete('/magic/{uid}', 'App\Http\Controllers\MagicController@deleteOrder');

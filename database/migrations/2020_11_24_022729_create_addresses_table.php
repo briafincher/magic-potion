@@ -20,13 +20,8 @@ class CreateAddressesTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('zip');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
-
-            // Foreign keys
-            // User // Can an Address have many users?
-            // $table->unsignedBigInteger('user_id');
-
-            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

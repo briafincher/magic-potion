@@ -17,13 +17,8 @@ class CreatePaymentMethodsTable extends Migration
             $table->bigIncrements('id');
             $table->string('card_number');
             $table->string('expiration_date');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
-
-            // Foreign keys
-            // User
-            // $table->unsignedBigInteger('user_id');
-
-            // $table->foreign('user_id')->references('id')->on('user');
         });
     }
 

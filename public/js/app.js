@@ -64469,17 +64469,6 @@ if (false) {} else {
 
 /***/ }),
 
-/***/ "./node_modules/react-flash-message/build/index.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/react-flash-message/build/index.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports=(()=>{var e={433:(e,t,r)=>{"use strict";var n=r(642);function o(){}function i(){}i.resetWarningCache=o,e.exports=function(){function e(e,t,r,o,i,u){if(u!==n){var s=new Error("Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");throw s.name="Invariant Violation",s}}function t(){return e}e.isRequired=e;var r={array:e,bool:e,func:e,number:e,object:e,string:e,symbol:e,any:e,arrayOf:t,element:e,elementType:e,instanceOf:t,node:e,objectOf:t,oneOf:t,oneOfType:t,shape:t,exact:t,checkPropTypes:i,resetWarningCache:o};return r.PropTypes=r,r}},74:(e,t,r)=>{e.exports=r(433)()},642:e=>{"use strict";e.exports="SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED"},368:(e,t,r)=>{"use strict";r.r(t),r.d(t,{default:()=>y});const n=__webpack_require__(/*! react */ "./node_modules/react/index.js");var o=r.n(n),i=r(74);function u(e){return(u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function s(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}function a(e,t){return(a=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function c(e,t){return!t||"object"!==u(t)&&"function"!=typeof t?p(e):t}function p(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}function f(e){return(f=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}var l=function(e){!function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&a(e,t)}(l,e);var t,r,n,i,u=(n=l,i=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Date.prototype.toString.call(Reflect.construct(Date,[],(function(){}))),!0}catch(e){return!1}}(),function(){var e,t=f(n);if(i){var r=f(this).constructor;e=Reflect.construct(t,arguments,r)}else e=t.apply(this,arguments);return c(this,e)});function l(e){var t;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,l),(t=u.call(this,e)).state={isVisible:!0},t.hide=t.hide.bind(p(t)),t.resumeTimer=t.resumeTimer.bind(p(t)),t.pauseTimer=t.pauseTimer.bind(p(t)),t}return t=l,(r=[{key:"componentDidMount",value:function(){var e=this.props.duration;this.remaining=e,this.resumeTimer()}},{key:"componentWillUnmount",value:function(){clearTimeout(this.timer)}},{key:"hide",value:function(){this.setState({isVisible:!1})}},{key:"resumeTimer",value:function(){window.clearTimeout(this.timer),this.start=new Date,this.timer=setTimeout(this.hide,this.remaining)}},{key:"pauseTimer",value:function(){this.props.persistOnHover&&(clearTimeout(this.timer),this.remaining-=new Date-this.start)}},{key:"render",value:function(){var e=this.state.isVisible,t=this.props.children;return e?o().createElement("div",{onMouseEnter:this.pauseTimer,onMouseLeave:this.resumeTimer},t):null}}])&&s(t.prototype,r),l}(n.Component);l.defaultProps={duration:5e3,children:null,persistOnHover:!0},l.propTypes={children:i.node,duration:i.number,persistOnHover:i.bool};const y=l}},t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={exports:{}};return e[n](o,o.exports,r),o.exports}return r.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return r.d(t,{a:t}),t},r.d=(e,t)=>{for(var n in t)r.o(t,n)&&!r.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:t[n]})},r.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r.r=e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r(368)})();
-
-/***/ }),
-
 /***/ "./node_modules/react-hook-form/dist/index.esm.js":
 /*!********************************************************!*\
   !*** ./node_modules/react-hook-form/dist/index.esm.js ***!
@@ -71804,9 +71793,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_flash_message__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-flash-message */ "./node_modules/react-flash-message/build/index.js");
-/* harmony import */ var react_flash_message__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_flash_message__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _OrderForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./OrderForm */ "./resources/js/components/OrderForm.js");
+/* harmony import */ var _OrderForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./OrderForm */ "./resources/js/components/OrderForm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71831,8 +71818,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
- // import Header from './Header';
+ // import FlashMessage from 'react-flash-message';
+// import Header from './Header';
 
  // function Example() {
 //     return (
@@ -71881,7 +71868,7 @@ var App = /*#__PURE__*/function (_Component) {
         }, "\u2728")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Place an order of up to three items with the form below."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
           exact: true,
           path: "/",
-          component: _OrderForm__WEBPACK_IMPORTED_MODULE_4__["default"]
+          component: _OrderForm__WEBPACK_IMPORTED_MODULE_3__["default"]
         })))))
       );
     }
@@ -71987,22 +71974,27 @@ function OrderForm() {
       register = _useForm.register,
       handleSubmit = _useForm.handleSubmit,
       watch = _useForm.watch,
-      errors = _useForm.errors;
+      errors = _useForm.errors; // const onSubmit = data => console.log(data);
+
 
   var onSubmit = function onSubmit(data) {
-    return console.log(data);
-  }; // const onSubmit = data => axios.post('api/createOrder');
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/magic', data).then(function (response) {
+      return console.log(response);
+    });
+  };
 
-
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {});
   var price = 49.99;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(price),
       _useState2 = _slicedToArray(_useState, 2),
       total = _useState2[0],
-      setTotal = _useState2[1];
+      setTotal = _useState2[1]; // useEffect(() => {}, [total]);
+
 
   var updateTotal = function updateTotal(e) {
-    return setTotal(parseInt(e.target.value) * price);
+    // debugger;
+    setTotal(parseInt(e.target.value) * price);
   }; // let quantity = watch('quantity');
   // const totale = () => quantity * 49.99;
 
@@ -72092,7 +72084,7 @@ function OrderForm() {
   }, "Order"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "order-info"
   }, "Quantity:\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
-    name: "quantitySelect",
+    name: "quantity",
     ref: register({
       required: true
     }),

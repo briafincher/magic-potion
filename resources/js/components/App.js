@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import FlashMessage from 'react-flash-message';
+// import FlashMessage from 'react-flash-message';
 
 // import Header from './Header';
 import OrderForm from './OrderForm';

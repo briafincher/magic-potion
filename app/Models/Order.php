@@ -15,6 +15,10 @@ class Order extends Model
     ];
 
     public function total() {
-    	return $this->quantity * $this->price;
+    	$price = 49.99;
+    	
+    	return $this->quantity * $price;
     }
 }
+
+// THOUGHT: Can we do something fancy with having an Order have many products?
