@@ -22,19 +22,19 @@ class User extends Model
     	'phone',
     ];
 
+    public function orders() {
+        return $this->hasMany('App\Models\Order');
+    }
+
     // $date should be of type array --> how do you do type checking?
-    public function ordersForMonth($date = getdate()) {
+    public function ordersForMonth($date) {
         if (gettype($date) === 'string') {
             $date = date_parse($date);
         }
 
-        // Is this the idiomatic way to write a filtering function?
-        $monthly_orders = $this->orders->filter(function ($value, $key) {
-            $month = $date['mon'];
-            $year = $date['year'];
-            return $value->created_at->year === $date['year'] && $value->created_at->month === $date['mon'];
-        });
-
-        return $monthly_orders;
+        return $this->orders()
+            ->whereYear('created_at', $date['year'])
+            ->whereMonth('created_at', $date['mon'])
+            ->get();
     }
 }

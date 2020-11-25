@@ -77,8 +77,12 @@ export default function OrderForm() {
 	const { register, handleSubmit, watch, errors } = useForm();
 
 	// const onSubmit = data => console.log(data);
-	const onSubmit = data => axios.post('/magic', data)
-		.then((response) => console.log(response));
+	const onSubmit = data => {
+		data['total'] = total;
+		console.log(data);
+
+		axios.post('/magic', data).then((response) => console.log(response));
+	}
 
 	useEffect(() => {});
 

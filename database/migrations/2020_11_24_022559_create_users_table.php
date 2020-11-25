@@ -19,11 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('phone');
-
-            // TODO: Explain why these are 1:1 relationships (for the purposes of this exercise)
-            // $table->foreignId('address_id')->constrained();
-            // $table->foreignId('payment_method_id')->constrained();
-
             $table->timestamps();
         });
     }

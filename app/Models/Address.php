@@ -15,5 +15,6 @@ class Address extends Model
     	'city',
     	'state',
     	'zip',
+    	'user_id'
     ];
 }

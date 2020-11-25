@@ -15,21 +15,14 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             // TODO: Add Products
             $table->integer('quantity');
             // TODO: $table->float('total'); // Or decimal?
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('address_id')->constrained();
+            $table->foreignId('payment_method_id')->constrained();
             $table->boolean('fulfilled')->default(FALSE);
             $table->timestamps();
-
-            // Foreign keys
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('payment_method_id');
-            $table->unsignedBigInteger('address_id');
-
-            $table->foreign('user_id')->references('id')->on('users'); // TODO: How do you drop a foreign key?
-            $table->foreign('payment_method_id')->references('id')->on('payment_methods');
-            $table->foreign('address_id')->references('id')->on('addresses');
         });
     }
 

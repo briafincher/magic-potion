@@ -13,22 +13,23 @@ use Illuminate\Http\Request;
 class MagicController extends Controller
 {
     public function showOrderForm() {
-    	return view('app');
+        // $products = Product::where('name', 'Magic Potion');
+
+    	// return view('app', $products);
+        return view('app');
     }
 
     public function createOrder(Request $request) {
-        // $product_id
-
         // Do this in a transaction??
 
-        // $email = $request->email;
+        // Retrieve User, Address and Payment information -or- create entries in DB
         $user_params = [
             'first_name' => $request->firstName,
             'last_name' => $request->lastName,
             'email' => $request->email,
             'phone' => $request->phone
         ];
-
+        
         // For simplicity's sake, Users are 1:1 with Addresses, or else it'd be too much of a pain to figure out if we should create the Address or not, or just pull one up in the database??? This is late night rambling I need to sleep I'm not making sense
         $address_params = [
             'street_1' => $request->address['street1'],
@@ -37,37 +38,42 @@ class MagicController extends Controller
             'state' => $request->address['state'],
             'zip' => $request->address['zip']
         ];
-
+        
         // This is likely a security issue. Should each card have just one User?
         $payment_params = [
             'card_number' => $request->payment['ccNum'],
             'expiration_date' => $request->payment['exp']
         ];
 
-        $order_params = [
-            'quantity' => $request->quantity, // Make sure this is an integer
-            'user_id' => 1,
-            'address_id' => 1,
-            'payment_method_id' => 1
-            // Do we need to add more stuff to point to the products? No, because we're given a request structure, so that implies that there aren't any more complex relationships between the order and the product :)
-        ];
-
         $user = User::firstOrCreate(['email' => $request->email], $user_params);
 
-        // What if the user wants to use a different address or payment method...?
+        // What if the user wants to use a different address...?
         $address = Address::firstOrCreate(['user_id' => $user->id], $address_params);
+        // rescure Illuminate\Database\QueryException
+
+        // What if the user wants to use a different payment method...?
         $payment_method = PaymentMethod::firstOrCreate(['user_id' => $user->id], $payment_params);
 
-        $num_monthly_orders = $user->ordersForMonth(getdate())->sum('quantity');
+        // Place the Order
+        $order_date = getdate();
+        $num_monthly_orders = $user->ordersForMonth($order_date)->sum('quantity');
 
-        if ($num_orders_this_month + $request->quantity <= 3) {
+        if ($num_monthly_orders + $request->quantity <= 3) {
+            $order_params = [
+                'quantity' => $request->quantity, // Make sure this is an integer
+                'user_id' => $user->id,
+                'address_id' => $address->id,
+                'payment_method_id' => $payment_method->id
+                // Do we need to add more stuff to point to the products? No, because we're given a request structure, so that implies that there aren't any more complex relationships between the order and the product :)
+            ];
+
             $new_order = new Order($order_params);
             $new_order->save();
         } else {
             // raise error
         }
 
-        $response = array(['id': $user->id])->toJson();
+        $response = json_encode(['id' => $user->id]);
 
         return response($response, 201);
         // return $request->toJson();

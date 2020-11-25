@@ -11,13 +11,21 @@ class Order extends Model
 
     protected $fillable = [
     	'quantity',
-    	'fulfilled',
+    	'user_id',
+    	'address_id',
+    	'payment_method_id',
+    	'fulfilled'
     ];
 
+    // Do we have to do it this way? Lol
+    private const MAGIC_POTION_PRICE = 49.99;
+
+    // public function price() {
+    // 	return $this::MAGIC_POTION_PRICE;
+    // }
+
     public function total() {
-    	$price = 49.99;
-    	
-    	return $this->quantity * $price;
+    	return $this->quantity * $this::MAGIC_POTION_PRICE;
     }
 }
 

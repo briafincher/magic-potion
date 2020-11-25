@@ -71978,7 +71978,9 @@ function OrderForm() {
 
 
   var onSubmit = function onSubmit(data) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/magic', data).then(function (response) {
+    data['total'] = total;
+    console.log(data);
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/magic', data).then(function (response) {
       return console.log(response);
     });
   };
