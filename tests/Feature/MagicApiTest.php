@@ -13,16 +13,20 @@ class MagicApiTest extends TestCase
      *
      * @return void
      */
-    public function testShowOrderForm() {
-        $response = $this->get('/');
+    public function testIndexRoute() {
+        $controller = $this->getMock(MagicController::class);
+        $controller
+            ->expects($this->once())
+            ->method('showOrderForm');
+            // ->with('Post has been published');
 
-        $response->assertStatus(200);
+        $response = $this->get('/');
     }
 
-    public function testShowOrder() {
-        $order = Order::factory();
+    public function testShowOrderRoute() {
+        // $order = Order::factory();
 
-        $response = $this->get("/magic/{$order->id}");
+        // $response = $this->get("/magic/{$order->id}");
 
         $response->assertStatus(200);
     }

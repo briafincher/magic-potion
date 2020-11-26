@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('address_id')->constrained();
             $table->foreignId('payment_method_id')->constrained();
-            $table->boolean('fulfilled')->default(FALSE);
+            $table->boolean('fulfilled')->default(false);
             $table->timestamps();
         });
     }

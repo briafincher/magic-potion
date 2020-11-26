@@ -22,6 +22,14 @@ class User extends Model
     	'phone',
     ];
 
+    public function address() {
+        return $this->hasOne('App\Models\Address');
+    }
+
+    public function payment_method() {
+        return $this->hasOne('App\Models\PaymentMethod');
+    }
+
     public function orders() {
         return $this->hasMany('App\Models\Order');
     }

@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\PaymentMethod;
+use App\Models\User;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PaymentMethodFactory extends Factory
@@ -23,7 +25,7 @@ class PaymentMethodFactory extends Factory
     {
         return [
             'card_number' => $this->faker->creditCardNumber,
-            'expiration_ddate' => $this->faker->creditCardExpirationDate,
+            'expiration_date' => $this->faker->creditCardExpirationDate,
             'user_id' => User::factory()
         ];
     }

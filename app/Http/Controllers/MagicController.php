@@ -82,11 +82,10 @@ class MagicController extends Controller
             // raise error
         }
 
-        $response = json_encode(['id' => $user->id]);
-
-        return response($response, 201);
+        return response(['id' => $user->id], 201);
         // return $request->toJson();
         // return view('app');
+        // return redirect()->back()->with('flash message')
     }
 
     /**
@@ -96,33 +95,33 @@ class MagicController extends Controller
         $order = Order::find($id);
 
         if ($order) {
-            $user = User::find($order->user_id);
-            $address = Address::find($user->address_id);
-            $payment_method = PaymentMethod::find($user->payment_method_id);
+            $user = $order->user;
+            $address = $order->address;
+            $payment_method = $order->payment_method;
 
             $data = [
-                "firstName" => $user->first_name, 
-                "lastName" => $user->last_name, 
-                "email" => $user->email, 
-                "address" => [
-                    "street1" => $address->street_1, 
-                    "street2" => $address->street_2, 
-                    "city" => $address->city, 
-                    "state" => $address->state, 
-                    "zip" => $address->zip,
+                'firstName' => $user->first_name, 
+                'lastName' => $user->last_name, 
+                'email' => $user->email, 
+                'address' => [
+                    'street1' => $address->street_1, 
+                    'street2' => $address->street_2, 
+                    'city' => $address->city, 
+                    'state' => $address->state, 
+                    'zip' => $address->zip,
                 ],
-                "phone" => $user->phone_number, 
-                "payment" => [
-                    "ccNum" => $payment_method->card_number,
-                    "exp" => $payment_method->card_number, 
+                'phone' => $user->phone_number, 
+                'payment' => [
+                    'ccNum' => $payment_method->card_number,
+                    'exp' => $payment_method->card_number, 
                 ],
-                "quantity" => $order->quantity, 
-                "total" => $order->total(),
-                 "orderDate" => $order->created_at, 
-                 "fulfilled" => $order->fulfilled
+                'quantity' => $order->quantity, 
+                'total' => $order->total(),
+                 'orderDate' => $order->created_at, 
+                 'fulfilled' => $order->fulfilled
              ];
 
-             return response($data)->toJson();
+             return response($data);
         } else {
             return response('Resource not found', 404);
         }
@@ -137,7 +136,6 @@ class MagicController extends Controller
         if ($order) {
             $order->fulfilled = $request->fulfilled;
             $order->save();
-
             return response('Resource updated successfully', 200);
         } else {
             return response('Resource not found', 404);
@@ -151,8 +149,7 @@ class MagicController extends Controller
         $order = Order::find($id);
 
         if ($order) {
-            $order->destroy();
-
+            $order->delete();
             return response('Resource deleted successfully', 200);
         } else {
             return response('Resource not found', 404);

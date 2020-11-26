@@ -18,6 +18,10 @@ class Address extends Model
     ];
 
     public function user() {
-    	return $this->hasOne('App\Models\User');
+    	return $this->belongsTo('App\Models\User');
+    }
+
+    public function orders() {
+        return $this->hasMany('App\Models\Order');
     }
 }

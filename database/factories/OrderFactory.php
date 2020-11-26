@@ -3,6 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Order;
+use App\Models\User;
+use App\Models\Address;
+use App\Models\PaymentMethod;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrderFactory extends Factory
@@ -22,9 +26,11 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'quantity' => $this->faker->numberBetween($min = 1, $max = 3),
+            'quantity' => $this->faker->numberBetween(1, 3),
             'user_id' => User::factory(),
             'address_id' => Address::factory(),
-            'payment_method_id' => PaymentMethod::factory()
+            'payment_method_id' => PaymentMethod::factory(),
+            'fulfilled' => false
+        ];
     }
 }

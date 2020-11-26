@@ -17,6 +17,10 @@ class Order extends Model
     	'fulfilled'
     ];
 
+    protected $casts = [
+        'fulfilled' => 'boolean'
+    ];
+
     // Do we have to do it this way? Lol
     private const MAGIC_POTION_PRICE = 49.99;
 
@@ -25,15 +29,15 @@ class Order extends Model
     // }
 
     public function user() {
-        return $this->hasOne('App\Models\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function address() {
-        return $this->hasOne('App\Models\Address');
+        return $this->belongsTo('App\Models\Address');
     }
 
     public function payment_method() {
-        return $this->hasOne('App\Models\PaymentMethod');
+        return $this->belongsTo('App\Models\PaymentMethod');
     }
 
     public function total() {
