@@ -34,12 +34,8 @@ class App extends Component {
             // <FlashMessage duration={5000} persistOnHover={true}>
             //   <p>Message</p>
             // </FlashMessage>;
+            
             <div>
-
-                <h1>Magic Potion <span role="img" aria-label="magic-ball">🔮</span><span role="img" aria-label="stars">✨</span></h1>
-
-                <p>Place an order of up to three items with the form below.</p>
-
                 <BrowserRouter>
                     <div>
                         <Switch>

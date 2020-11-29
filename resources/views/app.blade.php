@@ -38,7 +38,19 @@
     </head>
 
     <body class="antialiased" style="margin: 10%">
-    	<div id="app"></div>
+    	<div id="app">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            @if (session('errror'))
+                <div class="alert alert-error">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
     	<script src="{{ asset('js/app.js') }}"></script>
 
         <!-- <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0"> -->

@@ -11,7 +11,8 @@ class PaymentMethod extends Model
 
     protected $fillable = [
     	'card_number',
-    	'expiration_date'
+    	'expiration_date',
+        'user_id'
     ];
 
     public function user() {

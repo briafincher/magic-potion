@@ -16,7 +16,10 @@ class MagicController extends Controller
     * @Get("/api")
     */
     public function showOrderForm() {
-        // $products = Product::where('name', 'Magic Potion');
+        // $product = Product::where('name', 'Magic Potion')->get();
+        // $data = [
+        //      'products' => ['name' => $product->name, 'price' => $product->price]
+        // ]
 
     	// return view('app', $products);
         return view('app');
@@ -69,7 +72,7 @@ class MagicController extends Controller
 
         if ($num_monthly_orders + $request->quantity <= 3) {
             $order_params = [
-                'quantity' => $request->quantity, // Make sure this is an integer
+                'quantity' => $request->quantity,
                 'user_id' => $user->id,
                 'address_id' => $address->id,
                 'payment_method_id' => $payment_method->id
@@ -79,8 +82,12 @@ class MagicController extends Controller
             $new_order = new Order($order_params);
             $new_order->save();
         } else {
-            // raise error
+            $message = "Order request failed. Monthly order quantity cannot exceed three items. You have already ordered $num_monthly_orders items this month.";
+
+            return redirect()->back()->with('error', $message)->withInput();
         }
+
+        $request->session()->flash('success', 'Order placed successfully!');
 
         return response(['id' => $user->id], 201);
         // return $request->toJson();
