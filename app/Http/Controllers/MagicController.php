@@ -10,6 +10,8 @@ use App\Models\User;
 
 use Illuminate\Http\Request;
 
+// use Session;
+
 class MagicController extends Controller
 {
     /**
@@ -82,17 +84,14 @@ class MagicController extends Controller
             $new_order = new Order($order_params);
             $new_order->save();
         } else {
-            $message = "Order request failed. Monthly order quantity cannot exceed three items. You have already ordered $num_monthly_orders items this month.";
-
-            return redirect()->back()->with('error', $message)->withInput();
+            $message = "Order request failed. Monthly order quantity cannot exceed three items.";
+            $request->session()->flash('error', $message);
+            abort(422, $message);
         }
 
         $request->session()->flash('success', 'Order placed successfully!');
 
         return response(['id' => $user->id], 201);
-        // return $request->toJson();
-        // return view('app');
-        // return redirect()->back()->with('flash message')
     }
 
     /**

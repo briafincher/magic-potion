@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { Component, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 
@@ -9,18 +8,13 @@ export default function OrderForm() {
 
 	const onSubmit = data => {
 		data['total'] = total;
-		// console.log(data);
 
-		axios.post('/magic', data)
-			// .then((response)=>{
-			// 	debugger;
-			// });
-		// .then((response) => console.log(response));
-		// setError((name: string, error: { type?: string, types?: object, message?: string, shouldFocus?: boolean }) => void
+		axios.post('/api/magic', data)
+			.then((response) => { location.reload() })
+			.catch((error) => { location.reload() });
 	}
 
-
-	const price = 49.99;
+	const price = 49.99; // Pass this in...
 	const [total, setTotal] = useState(price);
 
 	const updateTotal = e => {

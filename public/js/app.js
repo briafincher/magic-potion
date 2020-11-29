@@ -71736,18 +71736,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-/**
- * Next, we will create a fresh React component instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 
 __webpack_require__(/*! ./components/App */ "./resources/js/components/App.js");
 
@@ -71837,27 +71826,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
- // import FlashMessage from 'react-flash-message';
-// import Header from './Header';
 
- // function Example() {
-//     return (
-//         <div className="container">
-//             <div className="row justify-content-center">
-//                 <div className="col-md-8">
-//                     <div className="card">
-//                         <div className="card-header">Example Component</div>
-//                         <div className="card-body">I'm an example component!</div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
-// export default Example;
-// if (document.getElementById('example')) {
-//     ReactDOM.render(<Example />, document.getElementById('example'));
-// }
+
 
 var App = /*#__PURE__*/function (_Component) {
   _inherits(App, _Component);
@@ -71873,17 +71843,11 @@ var App = /*#__PURE__*/function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return (
-        /*#__PURE__*/
-        // <FlashMessage duration={5000} persistOnHover={true}>
-        //   <p>Message</p>
-        // </FlashMessage>;
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-          exact: true,
-          path: "/",
-          component: _OrderForm__WEBPACK_IMPORTED_MODULE_3__["default"]
-        })))))
-      );
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/",
+        component: _OrderForm__WEBPACK_IMPORTED_MODULE_3__["default"]
+      })))));
     }
   }]);
 
@@ -71908,9 +71872,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
-/* harmony import */ var _hookform_error_message__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @hookform/error-message */ "./node_modules/@hookform/error-message/dist/index.esm.js");
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
+/* harmony import */ var _hookform_error_message__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @hookform/error-message */ "./node_modules/@hookform/error-message/dist/index.esm.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -71927,24 +71890,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function OrderForm() {
-  var _useForm = Object(react_hook_form__WEBPACK_IMPORTED_MODULE_3__["useForm"])(),
+  var _useForm = Object(react_hook_form__WEBPACK_IMPORTED_MODULE_2__["useForm"])(),
       register = _useForm.register,
       handleSubmit = _useForm.handleSubmit,
       errors = _useForm.errors;
 
   var onSubmit = function onSubmit(data) {
-    data['total'] = total; // console.log(data);
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/magic', data); // .then((response)=>{
-    // 	debugger;
-    // });
-    // .then((response) => console.log(response));
-    // setError((name: string, error: { type?: string, types?: object, message?: string, shouldFocus?: boolean }) => void
+    data['total'] = total;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/magic', data).then(function (response) {
+      location.reload();
+    })["catch"](function (error) {
+      location.reload();
+    });
   };
 
-  var price = 49.99;
+  var price = 49.99; // Pass this in...
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(price),
       _useState2 = _slicedToArray(_useState, 2),
@@ -72022,7 +71983,7 @@ function OrderForm() {
     ref: register({
       required: true
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_4__["ErrorMessage"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_3__["ErrorMessage"], {
     errors: errors,
     name: "firstName",
     message: "First name is required"
@@ -72036,7 +71997,7 @@ function OrderForm() {
     ref: register({
       required: true
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_4__["ErrorMessage"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_3__["ErrorMessage"], {
     errors: errors,
     name: "lastName",
     message: "Last name is required"
@@ -72052,7 +72013,7 @@ function OrderForm() {
     ref: register({
       required: true
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_4__["ErrorMessage"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_3__["ErrorMessage"], {
     errors: errors,
     name: "email",
     message: "Email address is required"
@@ -72066,7 +72027,7 @@ function OrderForm() {
     ref: register({
       required: true
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_4__["ErrorMessage"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_3__["ErrorMessage"], {
     errors: errors,
     name: "phone",
     message: "Phone number is required"
@@ -72086,7 +72047,7 @@ function OrderForm() {
     ref: register({
       required: true
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_4__["ErrorMessage"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_3__["ErrorMessage"], {
     errors: errors,
     name: "address[street1]",
     message: "Street address is required"
@@ -72111,7 +72072,7 @@ function OrderForm() {
     ref: register({
       required: true
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_4__["ErrorMessage"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_3__["ErrorMessage"], {
     errors: errors,
     name: "address[city]",
     message: "City is required"
@@ -72125,7 +72086,7 @@ function OrderForm() {
     ref: register({
       required: true
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_4__["ErrorMessage"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_3__["ErrorMessage"], {
     errors: errors,
     name: "address[state]",
     message: "State is required"
@@ -72139,7 +72100,7 @@ function OrderForm() {
     ref: register({
       required: true
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_4__["ErrorMessage"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_3__["ErrorMessage"], {
     errors: errors,
     name: "address[zip]",
     message: "Zip code is required"
@@ -72159,7 +72120,7 @@ function OrderForm() {
     ref: register({
       required: true
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_4__["ErrorMessage"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_3__["ErrorMessage"], {
     errors: errors,
     name: "payment[ccNum]",
     message: "Credit card number is required"
@@ -72173,7 +72134,7 @@ function OrderForm() {
     ref: register({
       required: true
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_4__["ErrorMessage"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_hookform_error_message__WEBPACK_IMPORTED_MODULE_3__["ErrorMessage"], {
     errors: errors,
     name: "payment[exp]",
     message: "Expiration date is required"

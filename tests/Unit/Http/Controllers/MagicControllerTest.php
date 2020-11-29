@@ -173,11 +173,6 @@ class MagicControllerTest extends TestCase
 
     	$this->assertSame(Order::count(), 2);
 		$this->assertSame($created_order->user_id, $user->id);
-    	$this->assertSame($created_order->quantity, $this->order_details['quantity']);
-    	
-    	// var_dump($created_order);
-    	// $this->assertSame($created_order->user, $user);
-    	$this->assertSame($created_order->email, $user->email);
     }
 
     public function test_create_order_does_not_create_if_user_will_have_more_than_3_orders_this_month() {
@@ -195,7 +190,7 @@ class MagicControllerTest extends TestCase
     	$response = (new MagicController)->createOrder($request);
 
     	$this->assertSame(Order::count(), 1);
-    	// $this->assertSame($response->status, 404);
+    	$this->assertSame($response->status, 422);
     }
 
     // Tests for showOrder()
