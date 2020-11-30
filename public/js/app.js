@@ -71896,15 +71896,6 @@ function OrderForm() {
       handleSubmit = _useForm.handleSubmit,
       errors = _useForm.errors;
 
-  var onSubmit = function onSubmit(data) {
-    data['total'] = total;
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/magic', data).then(function (response) {
-      location.reload();
-    })["catch"](function (error) {
-      location.reload();
-    });
-  };
-
   var price = 49.99; // Pass this in...
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(price),
@@ -71914,6 +71905,15 @@ function OrderForm() {
 
   var updateTotal = function updateTotal(e) {
     setTotal(parseInt(e.target.value) * price);
+  };
+
+  var onSubmit = function onSubmit(data) {
+    data['total'] = total;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/magic', data).then(function (response) {
+      location.reload();
+    })["catch"](function (error) {
+      location.reload();
+    });
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {

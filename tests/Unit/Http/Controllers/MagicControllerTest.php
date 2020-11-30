@@ -9,7 +9,6 @@ use App\Models\Address;
 use App\Models\PaymentMethod;
 
 use Tests\TestCase;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
@@ -59,7 +58,7 @@ class MagicControllerTest extends TestCase
 
     // Should this be a 500 error?
     public function test_create_order_returns_500_if_there_is_an_error_creating_the_order() {
-
+    	// TODO: Fill me in!!
     }
 
     public function test_create_order_adds_user_if_not_in_db() {
@@ -190,7 +189,7 @@ class MagicControllerTest extends TestCase
     	$response = (new MagicController)->createOrder($request);
 
     	$this->assertSame(Order::count(), 1);
-    	$this->assertSame($response->status, 422);
+    	$this->assertSame($response->status(), 422);
     }
 
     // Tests for showOrder()

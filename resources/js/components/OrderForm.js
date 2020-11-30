@@ -6,14 +6,6 @@ import { ErrorMessage } from '@hookform/error-message';
 export default function OrderForm() {
 	const { register, handleSubmit, errors } = useForm();
 
-	const onSubmit = data => {
-		data['total'] = total;
-
-		axios.post('/api/magic', data)
-			.then((response) => { location.reload() })
-			.catch((error) => { location.reload() });
-	}
-
 	const price = 49.99; // Pass this in...
 	const [total, setTotal] = useState(price);
 
@@ -21,6 +13,14 @@ export default function OrderForm() {
 		setTotal(parseInt(e.target.value) * price);
 	};
 
+	const onSubmit = data => {
+		data['total'] = total;
+
+		axios.post('/api/magic', data)
+			.then((response) => { location.reload() })
+			.catch((error) => { location.reload() });
+	}
+	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<div className="container">
