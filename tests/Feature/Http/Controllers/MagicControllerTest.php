@@ -71,17 +71,6 @@ class MagicControllerTest extends TestCase
     	]));
     }
 
-   /**
-   * Tests that POST '/api/magic' returns a 500 status code when there is
-   * an error creating the order.
-   *
-   * @return void
-   */
-   /** @test */
-    public function test_create_order_method_returns_500_if_there_is_an_error_creating_the_order() {
-    	// TODO: Fill me in!!
-    }
-
     /**
     * Tests that POST '/api/magic' creates a User if one does not already
     * exist in the database.

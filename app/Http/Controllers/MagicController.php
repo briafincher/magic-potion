@@ -15,77 +15,65 @@ class MagicController extends Controller
     /**
     * GET ('/api/magic')
     *
+    * Shows the Magic Potion order form by returning the 'app' view.
+    *
     *  @return Illuminate\Http\Response
     */
     public function showOrderForm() {
-        // $product = Product::where('name', 'Magic Potion')->get();
-        // $data = [
-        //      'products' => ['name' => $product->name, 'price' => $product->price]
-        // ]
-
-    	// return view('app', $products);
         return view('app');
     }
 
     /**
     * POST ('/api/magic')
     *
-    *  @return Illuminate\Http\Response
+    * Queries DB for matching User, Address and PaymentMethod, and/or 
+    * creates new model instances. Returns details about the User after 
+    * successfully placing the order.
+    *
+    * @param Illuminate\Http\Request $request
+    * @return Illuminate\Http\Response
     */
     public function createOrder(Request $request) {
-        // Do this in a transaction??
 
-        // Group parameters
-        $user_params = [
+        // Retrieve or create User, Address and Payment Method instances
+
+        $user = User::firstOrCreate(['email' => $request->email], [
             'first_name' => $request->firstName,
             'last_name' => $request->lastName,
             'email' => $request->email,
             'phone' => $request->phone
-        ];
-        
-        // For simplicity's sake, Users are 1:1 with Addresses, or else it'd be too much of a pain to figure out if we should create the Address or not, or just pull one up in the database??? This is late night rambling I need to sleep I'm not making sense
-        $address_params = [
+        ]);
+
+        $address = Address::firstOrCreate(['user_id' => $user->id], [
             'street_1' => $request->address['street1'],
             'street_2' => $request->address['street2'],
             'city' => $request->address['city'],
             'state' => $request->address['state'],
             'zip' => $request->address['zip']
-        ];
+        ]);
 
-        // This is likely a security issue. Should each card have just one User?
-        $payment_params = [
+        $payment_method = PaymentMethod::firstOrCreate(['user_id' => $user->id], [
             'card_number' => $request->payment['ccNum'],
             'expiration_date' => $request->payment['exp']
-        ];
-
-
-        // Retrieve User, Address and Payment Method instances
-        $user = User::firstOrCreate(['email' => $request->email], $user_params);
-
-        // What if the user wants to use a different address...?
-        $address = Address::firstOrCreate(['user_id' => $user->id], $address_params);
-        // rescure Illuminate\Database\QueryException
-
-        // What if the user wants to use a different payment method...?
-        $payment_method = PaymentMethod::firstOrCreate(['user_id' => $user->id], $payment_params);
-
+        ]);
 
         // Place the Order
+
         $order_date = getdate();
         $num_monthly_orders = $user->ordersForMonth($order_date)->sum('quantity');
 
         if ($num_monthly_orders + $request->quantity <= 3) {
-            $order_params = [
+            $new_order = new Order([
                 'quantity' => $request->quantity,
                 'user_id' => $user->id,
                 'address_id' => $address->id,
                 'payment_method_id' => $payment_method->id
-                // Do we need to add more stuff to point to the products? No, because we're given a request structure, so that implies that there aren't any more complex relationships between the order and the product :)
-            ];
+            ]);
 
-            $new_order = new Order($order_params);
             $new_order->save();
+
         } else {
+
             $message = 'Order request failed. Monthly order quantity cannot exceed three items.';
             session()->flash('error', $message);
             return response('error', 422);
@@ -96,9 +84,12 @@ class MagicController extends Controller
     }
 
     /**
-    * GET ('/api/magic/{uid}'')
+    * GET ('/api/magic/{uid}')
     *
-    *  @return Illuminate\Http\Response
+    * Queries DB for matching Order and returns its details.
+    *
+    * @param integer $id
+    * @return Illuminate\Http\Response
     */
     public function showOrder($id) {
         $order = Order::find($id);
@@ -139,7 +130,10 @@ class MagicController extends Controller
     /**
     * PATCH ('/api/magic')
     *
-    *  @return Illuminate\Http\Response
+    * Queries DB for matching Order and updates its 'fulfilled' property.
+    *
+    * @param Illuminate\Http\Request $request
+    * @return Illuminate\Http\Response
     */
     public function updateOrder(Request $request) {
         $order = Order::find($request->id);
@@ -156,7 +150,10 @@ class MagicController extends Controller
     /**
     * DELETE ('/api/magic/{uid}')
     *
-    *  @return Illuminate\Http\Response
+    * Queries DB for matching Order and deletes the record.
+    *
+    * @param integer $id
+    * @return Illuminate\Http\Response
     */
     public function deleteOrder($id) {
         $order = Order::find($id);

@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Route;
 // Index
 Route::get('/', 'App\Http\Controllers\MagicController@showOrderForm');
 
-// Order potion
+// Order Magic Potion
 Route::post('/magic', 'App\Http\Controllers\MagicController@createOrder');
 
-// Retrieve order
+// Retrieve order details
 Route::get('/magic/{uid}', 'App\Http\Controllers\MagicController@showOrder');
 
 // Update order

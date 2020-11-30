@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message';
 export default function OrderForm() {
 	const { register, handleSubmit, errors } = useForm();
 
-	const price = 49.99; // Pass this in...
+	const price = 49.99;
 	const [total, setTotal] = useState(price);
 
 	const updateTotal = e => {

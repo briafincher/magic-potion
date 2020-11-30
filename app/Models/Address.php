@@ -18,10 +18,20 @@ class Address extends Model
         'user_id'
     ];
 
+    /**
+    * Show User associated with the Address.
+    *
+    * @return Illuminate\Database\Eloquent\Relations\HasOne
+    */
     public function user() {
     	return $this->belongsTo('App\Models\User');
     }
 
+    /**
+    * Show Orders associated with the Address.
+    *
+    * @return Illuminate\Database\Eloquent\Relations\HasMany
+    */
     public function orders() {
         return $this->hasMany('App\Models\Order');
     }

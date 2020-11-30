@@ -71896,7 +71896,7 @@ function OrderForm() {
       handleSubmit = _useForm.handleSubmit,
       errors = _useForm.errors;
 
-  var price = 49.99; // Pass this in...
+  var price = 49.99;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(price),
       _useState2 = _slicedToArray(_useState, 2),

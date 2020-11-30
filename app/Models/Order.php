@@ -21,22 +21,41 @@ class Order extends Model
         'fulfilled' => 'boolean'
     ];
 
-    // Do we have to do it this way? Lol
-    private const MAGIC_POTION_PRICE = 49.99;
-
+    /**
+    * Show User associated with the Order.
+    *
+    * @return Illuminate\Database\Eloquent\Relations\HasOne
+    */
     public function user() {
         return $this->belongsTo('App\Models\User');
     }
 
+    /**
+    * Show Address associated with the Order.
+    *
+    * @return Illuminate\Database\Eloquent\Relations\HasOne
+    */
     public function address() {
         return $this->belongsTo('App\Models\Address');
     }
 
+    /**
+    * Show PaymentMethod associated with the Order.
+    *
+    * @return Illuminate\Database\Eloquent\Relations\HasOne
+    */
     public function payment_method() {
         return $this->belongsTo('App\Models\PaymentMethod');
     }
 
+    /**
+    * Calculates order total based on Magic Potion price of $49.99.
+    *
+    * @return float
+    */
     public function total() {
-    	return $this->quantity * $this::MAGIC_POTION_PRICE;
+        $price = 49.99;
+
+    	return $this->quantity * $price;
     }
 }
