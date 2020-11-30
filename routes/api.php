@@ -10,7 +10,7 @@ Route::get('/', 'App\Http\Controllers\MagicController@showOrderForm');
 Route::post('/magic', 'App\Http\Controllers\MagicController@createOrder');
 
 // Retrieve order
-Route::get('/magic/{uid})', 'App\Http\Controllers\MagicController@showOrder');
+Route::get('/magic/{uid}', 'App\Http\Controllers\MagicController@showOrder');
 
 // Update order
 Route::patch('/magic', 'App\Http\Controllers\MagicController@updateOrder');

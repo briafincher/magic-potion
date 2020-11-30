@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 class MagicController extends Controller
 {
     /**
-    * @Get("/api")
+    * GET ('/api/magic')
+    *
+    *  @return Illuminate\Http\Response
     */
     public function showOrderForm() {
         // $product = Product::where('name', 'Magic Potion')->get();
@@ -26,7 +28,9 @@ class MagicController extends Controller
     }
 
     /**
-    * @Post("/api/magic")
+    * POST ('/api/magic')
+    *
+    *  @return Illuminate\Http\Response
     */
     public function createOrder(Request $request) {
         // Do this in a transaction??
@@ -92,7 +96,9 @@ class MagicController extends Controller
     }
 
     /**
-    * @Get("/api/magic/{uid}")
+    * GET ('/api/magic/{uid}'')
+    *
+    *  @return Illuminate\Http\Response
     */
     public function showOrder($id) {
         $order = Order::find($id);
@@ -131,7 +137,9 @@ class MagicController extends Controller
     }
 
     /**
-    * @Patch("/api/magic")
+    * PATCH ('/api/magic')
+    *
+    *  @return Illuminate\Http\Response
     */
     public function updateOrder(Request $request) {
         $order = Order::find($request->id);
@@ -146,7 +154,9 @@ class MagicController extends Controller
     }
 
     /**
-    * @Delete("/api/magic/{uid}")
+    * DELETE ('/api/magic/{uid}')
+    *
+    *  @return Illuminate\Http\Response
     */
     public function deleteOrder($id) {
         $order = Order::find($id);

@@ -17,9 +17,10 @@ Magic Potion is a single-page web application that displays a form for processin
 
 ## Potential future optimizations
 
-- 
-- 
+- Support multiple products
+- UI improvements
+- Enhanced test coverage
+- User authentication
 
 ## Sources
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
