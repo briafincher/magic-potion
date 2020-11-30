@@ -29,6 +29,10 @@ class CreatePaymentMethodsTable extends Migration
      */
     public function down()
     {
+        Schema::table('payment_methods', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
+        
         Schema::dropIfExists('payment_methods');
     }
 }
