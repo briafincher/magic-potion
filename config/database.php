@@ -10,7 +10,7 @@ if ($url = env('CLEARDB_DATABASE_URL', false)) {
     $password = $url_partials['pass'];
 } else {
     $url = env('DATABASE_URL');
-    $database = env('DB_DATABASE', 'magic-potion');
+    $database = env('DB_DATABASE', 'magic');
     $host = env('DB_HOST', '127.0.0.1');
     $username = env('DB_USERNAME', 'root');
     $password = env('DB_PASSWORD', '');

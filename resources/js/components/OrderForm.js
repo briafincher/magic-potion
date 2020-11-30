@@ -24,9 +24,15 @@ export default function OrderForm() {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<div className="container">
-				<h1>Magic Potion <span role="img" aria-label="magic-ball">🔮</span><span role="img" aria-label="stars">✨</span></h1>
+				<div className="h-100 align-items-center justify-content-center">
+					<div className="row justify-content-center">
+						<h1>Magic Potion <span role="img" aria-label="magic-ball">🔮</span><span role="img" aria-label="stars">✨</span></h1>
+					</div>
 
-				<p>Place an order of up to three items with the form below.</p>
+					<div className="row justify-content-center">
+						<p>Place an order of up to three items with the form below.</p>
+					</div>
+				</div><br />
 
 				<div id="order-info">
 					<div className="form-row">
@@ -39,9 +45,9 @@ export default function OrderForm() {
 							</select>
 						</div>
 
-						<div className="form-group col">
+						<div className="form-group col flex-nowrap">
 							<label htmlFor="total">Total</label>
-							<div className="input-group">
+							<div className="input-group flex-nowrap">
 								<div className="input-group-prepend">
 								    <span className="input-group-text" id="dollar-sign">$</span>
 								 </div>
