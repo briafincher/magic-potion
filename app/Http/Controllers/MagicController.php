@@ -27,8 +27,8 @@ class MagicController extends Controller
     * POST ('/api/magic')
     *
     * Queries DB for matching User, Address and PaymentMethod, and/or 
-    * creates new model instances. Returns details about the User after 
-    * successfully placing the order.
+    * creates new model instances. Returns details about the User 
+    * after successfully placing the order.
     *
     * @param Illuminate\Http\Request $request
     * @return Illuminate\Http\Response

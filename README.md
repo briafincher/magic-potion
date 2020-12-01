@@ -12,9 +12,9 @@
 
 Magic Potion is a single-page web application that displays a form for processing user orders. 
 
-<img src="https://imgur.com/uorz0rT.png" width="800" />
+<img src="https://imgur.com/CrTQ7S1.png" width="800" />
 
-The form allows users to select a quantity of Magic Potion items to order and displays a total based on the item price. After the user inputs required identifying information including their name, email address, phone number, address and payment method, the form submits a POST request to the server API, which creates an order in the database. 
+The form allows users to select a quantity of Magic Potion items to order and displays a total based on the item price. After the user inputs required identifying information including their name, email address, phone number, address and payment method, the form submits a `POST` request to the server API, which creates an order in the database. 
 
 Users are allowed a total of three Magic Potion items per month (e.g. a user may place more than one order in a given month, but the total quantity of items ordered may not exceed 3).
 
@@ -40,7 +40,7 @@ A `User` represents a single user who may place an order. `User`s have the follo
 ```
 Our data model assumes that `User`s have a one-to-one relationship with both `PaymentMethod`s and `Address`es. A `User` can have many `Order`s; however, they are limited to 3 orders per month. These collections can be accessed with the `payment_method()`, `address()` and `orders()` methods, respectively.
 
-`User` objects also have access to a method called `orders_per_month()` which takes in a given `date` array, and calculates the quantity of items ordered in that month.
+`User` objects also have access to a method called `orders_per_month()`, which takes in a given `date` array and calculates the quantity of items ordered in that month.
 
 #### Address
 An `Address` contains details about a `User`'s address. `Address`es have the following properties:
@@ -94,11 +94,136 @@ An `Order` object also has access to a `total()` method, which calculates the do
 - For simplicity, the current architecture assumes that a `User` has a one-to-one relationship with an `Address` and `PaymentMethod`. In the real world, a person might want to place orders to a work address and a separate home address, or they could have two different credit cards that they use. Updating these associations to be one-to-many would allow for greater flexibility.
 
 ### Frontend architecture
+In lieu of a strictly RESTful API, the Magic Potion application leverages the provided Laravel `web` middleware in order to serve HTML views.
+
+A `GET` API call to the home page renders a Blade view entitled `'app.blade.php'`. A Javascript script is injected into the view, which then builds and renders React components.
+
+The main component of the application is `'App.js'`, which in turn renders `'OrderForm.js'`, the React component that contains our order form and associated logic.
+
+The `OrderForm` component utilizes the `react-hook-form` package to render a form that uses hooks to update the disabled `#total` input, displaying the calculated total to the user based on the item quantity selected. 
+
+The user is able to input information pertaining to contact details, address and payment method, which are each validated by their respective `required` input attribute. React Hook Form provides an `ErrorMessage` component that highlights form fields that did not pass validation upon submit. 
+
+After a user submits the form, an `axios` call is made to the server, which returns the response and reloads the page in order to display a success/error flash message.
 
 ### API architecture
+The Magic Potion application exposes five RESTful API routes:
+
+- `GET '/api/'`
+- `POST '/api/magic'`
+- `GET '/api/magic/{uid}'`
+- `PATCH '/api/magic`
+- `DELETE '/api/magic/{uid}'`
+
+Each of these routes makes a call to a specific method in the `MagicController` that is able to process the request.
+
+#### `GET '/api/'`
+This route shows the Magic Potion order form by rendering the `'app'` view. 
+
+The `MagicController` method associated with this route is `showOrderForm()`.
+
+#### `POST '/api/magic'`
+This route accepts a JSON request and queries the database for the `User`, `Address` and `PaymentMethod` matching the request details. Otherwise, new object instances are created. 
+
+After retrieving the appropriate database records, the user's monthly order quantities are calculated, and if the total including the requested quantity falls under the current three item threshold, the server creates an `Order`, returns a `201` JSON response with the `User`s `id` and displays a succesful flash message. 
+
+If the quantity of items requested does not satisfy our order limit requirements, the order request is rejected, and the server renders a `422` response and displays the associated failure flash message. 
+
+The `MagicController` method associated with this route is `createOrder()`.
+
+##### Request structure:
+```
+{
+   "firstName": "string", 
+   "lastName": "string", 
+   "email": "string", 
+   "address": {
+      "street1": "string", 
+      "street2": "string", 
+      "city": "string", 
+      "state": "string", 
+      "zip": "string"
+   },
+   "phone": "string", 
+   "quantity": number, 
+   "total": "string", 
+   "payment": {
+      "ccNum": "string",
+      "exp": "string", 
+   },
+}
+```
+
+##### Response structure:
+```
+{
+   "id": uid
+}
+```
+
+#### `GET '/api/magic/{uid}'`
+This route accepts a `uid` as a parameter, which represents an `Order` object's associated `id`.
+
+The server queries the database for the requested `Order` and renders a JSON response with details including `quantity`, `total()`, `fulfilled` status and its associated `User`, `Address` and `PaymentMethod`. 
+
+If the order is not found in the database, a `404`response is returned.
+
+The `MagicController` method associated with this route is `showOrder()`.
+
+##### Response structure:
+
+```
+{
+   "firstName": "string", 
+   "lastName": "string", 
+   "email": "string", 
+   "address": {
+      "street1": "string", 
+      "street2": "string", 
+      "city": "string", 
+      "state": "string", 
+      "zip": "string",
+   },
+   "phone": "string", 
+   "payment": {
+      "ccNum": "string",
+      "exp": "string", 
+   },
+   "quantity": number, 
+   "total": "string", 
+   "orderDate": date, 
+   "fulfilled": bool,
+}
+```
+
+#### `PATCH '/api/magic`
+This route accepts a JSON request and queries the database for the requested `Order`.
+
+The server queries the database for the requested `Order`, and if the record is found in the database, its `fulfilled` column is updated based on the request data, and a `200` response is returned. 
+
+If no matching `Order` record exists, the server does not perform any database writes, and a `404` response is returned.
+
+The `MagicController` method associated with this route is `updateOrder()`.
+
+##### Request structure:
+
+```
+{
+   "id": uid, 
+   "fulfilled": bool
+}
+```
+
+#### `DELETE '/api/magic/{uid}'`
+This route accepts a `uid` as a parameter, which represents an `Order` object's associated `id`.
+
+The server queries the database for the requested `Order`, and if the record is found in the database, it deletes the record and returns a `200` response. 
+
+If no matching `Order` record exists, the server does not perform any database writes, and a `404` response is returned.
+
+The `MagicController` method associated with this route is `deleteOrder()`.
 
 ### Potential future optimizations
-
 - Support for multiple products
 - UI improvements (e.g. better validation error highlighting, stricter form inputs, etc.)
 - More comprehensive error handling
